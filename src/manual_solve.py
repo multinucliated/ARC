@@ -1,22 +1,32 @@
 #!/usr/bin/python
 
-import os, sys
 import json
-import numpy as np
+import os
 import re
+
+import numpy as np
+
 
 ### YOUR CODE HERE: write at least three functions which solve
 ### specific tasks by transforming the input x and returning the
 ### result. Name them according to the task ID as in the three
 ### examples below. Delete the three examples. The tasks you choose
 ### must be in the data/training directory, not data/evaluation.
-def solve_6a1e5592(x):
-    return x
 
-def solve_b2862040(x):
-    return x
+# def solve_6a1e5592(x):
+#     return x
+#
+#
+# def solve_b2862040(x):
+#     return x
+#
+#
+# def solve_05269061(x):
+#     return x
 
-def solve_05269061(x):
+
+def solve_045e512c(x):
+    print(x)
     return x
 
 
@@ -25,16 +35,16 @@ def main():
     # like solve_abcd1234(), and run them.
 
     # regex to match solve_* functions and extract task IDs
-    p = r"solve_([a-f0-9]{8})" 
+    p = r"solve_([a-f0-9]{8})"
     tasks_solvers = []
     # globals() gives a dict containing all global names (variables
     # and functions), as name: value pairs.
-    for name in globals(): 
+    for name in globals():
         m = re.match(p, name)
         if m:
             # if the name fits the pattern eg solve_abcd1234
-            ID = m.group(1) # just the task ID
-            solve_fn = globals()[name] # the fn itself
+            ID = m.group(1)  # just the task ID
+            solve_fn = globals()[name]  # the fn itself
             tasks_solvers.append((ID, solve_fn))
 
     for ID, solve_fn in tasks_solvers:
@@ -43,13 +53,14 @@ def main():
         json_filename = os.path.join(directory, ID + ".json")
         data = read_ARC_JSON(json_filename)
         test(ID, solve_fn, data)
-    
+
+
 def read_ARC_JSON(filepath):
     """Given a filepath, read in the ARC task data which is in JSON
     format. Extract the train/test input/output pairs of
     grids. Convert each grid to np.array and return train_input,
     train_output, test_input, test_output."""
-    
+
     # Open the JSON file and load it 
     data = json.load(open(filepath))
 
@@ -77,7 +88,7 @@ def test(taskID, solve, data):
         yhat = solve(x)
         show_result(x, y, yhat)
 
-        
+
 def show_result(x, y, yhat):
     print("Input")
     print(x)
@@ -93,4 +104,3 @@ def show_result(x, y, yhat):
 
 
 if __name__ == "__main__": main()
-
